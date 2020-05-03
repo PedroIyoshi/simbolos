@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.swing.JPanel;
 
@@ -20,5 +21,11 @@ public class Painel extends JPanel{
 		Botoes b = new Botoes(simbolo, id);
 		btn.add(b);
 		add(b);
+	}
+	
+	public void getSimbolo(int id) {
+		Optional<Botoes> o = btn.stream().filter(e -> e.getId() == id).findAny();
+		btn.stream().forEach(a -> a.changeBorderColor(false));
+		o.ifPresent(a -> a.changeBorderColor(true));
 	}
 }

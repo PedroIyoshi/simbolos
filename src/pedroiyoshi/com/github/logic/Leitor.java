@@ -3,7 +3,6 @@ package pedroiyoshi.com.github.logic;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-
 import javax.swing.JOptionPane;
 
 public class Leitor {

@@ -12,10 +12,10 @@ import pedroiyoshi.com.github.logic.*;
 public class Botoes extends JButton implements ActionListener{
 	private final int id;
 	private final String texto;
-	private boolean selecionado;
 	Botoes(String simbolo, int id){
 		setText(simbolo);
 		texto = simbolo;
+		System.out.println(getText());
 		this.id = id;
 		setBackground(new Color(100, 100, 100));
 		setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
@@ -24,7 +24,7 @@ public class Botoes extends JButton implements ActionListener{
 		addActionListener(this);
 	}
 
-	public void changeBorderColor() {
+	public void changeBorderColor(boolean selecionado) {
 		if(selecionado) {
 			setBorder(BorderFactory.createLineBorder(Color.RED));
 		}else {
