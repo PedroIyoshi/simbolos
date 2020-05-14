@@ -4,12 +4,11 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class Painel extends JPanel{
+public class Painel extends JPanel	{
 	private List<Botoes> btn = new ArrayList<>();
 	
 	Painel(int y){
@@ -24,8 +23,7 @@ public class Painel extends JPanel{
 	}
 	
 	public void getSimbolo(int id) {
-		Optional<Botoes> o = btn.stream().filter(e -> e.getId() == id).findAny();
 		btn.stream().forEach(a -> a.changeBorderColor(false));
-		o.ifPresent(a -> a.changeBorderColor(true));
+		btn.stream().filter(e -> e.getId() == id).findAny().ifPresent(a -> a.changeBorderColor(true));
 	}
 }

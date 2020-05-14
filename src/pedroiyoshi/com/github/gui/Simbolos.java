@@ -4,20 +4,34 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JFrame;
-import pedroiyoshi.com.github.logic.Copiar;
+
 import pedroiyoshi.com.github.logic.Leitor;
+import pedroiyoshi.com.github.logic.Navegacao;
 
 @SuppressWarnings("serial")
 public class Simbolos extends JFrame implements KeyListener{
 	private int y, selecionado = 0;
-	private final String path = "src\\pedroiyoshi\\com\\github\\gui\\content.txt";
-	private String simbolos = new Leitor().leitor(path);
+	public static final String path = "src\\pedroiyoshi\\com\\github\\gui\\content.txt";
+	private String simbolos = Leitor.read();
 	private Painel painel;
+	public static List<Simbolos> janelas = new ArrayList<>();
+	private static Simbolos janela;
 	
-	private Simbolos(){
+	public static void reload(){
+		janela.setVisible(false);
+		new Simbolos();
+	}
+	
+	Simbolos(){
+		janela = this;
+		janelas.add(this);
 		Dimension tk = Toolkit.getDefaultToolkit().getScreenSize();
 		y = (int) Math.round(simbolos.length()/ 7.0);
+		setJMenuBar(new Menu());
 		organizarLayout();
 		setAlwaysOnTop(true);
 		int distanciax = (int) Math.round(tk.getWidth() - 555);
@@ -28,7 +42,7 @@ public class Simbolos extends JFrame implements KeyListener{
 		setFocusable(true);
 		setTitle("Simbolos");
 	}
-		
+	
 	public static void main(String[] args) {
 		new Simbolos();
 	} 
@@ -43,26 +57,9 @@ public class Simbolos extends JFrame implements KeyListener{
 	}
 	
 	public void keyPressed(KeyEvent e) {
-		int length = simbolos.length() - 1;
-		switch(e.getKeyCode()) {
-		case 40:
-			selecionado = selecionado + 7 >= length?length:selecionado+7;
-			break;
-		case 39:
-			selecionado = selecionado == length?length:selecionado + 1;
-			break;
-		case 38:
-			selecionado = selecionado - 7 <= 0?0:selecionado - 7; 
-			break;
-		case 37:
-			selecionado = selecionado == 0?0:selecionado - 1;
-			break;
-		case 32: case 10:
-			new Copiar().copiar(simbolos.charAt(selecionado) + "");
-		}
+		selecionado = new Navegacao().navegar(e, simbolos, selecionado);
 		painel.getSimbolo(selecionado);
 	}
 	public void keyReleased(KeyEvent e) {}
 	public void keyTyped(KeyEvent e) {}
-	
 }

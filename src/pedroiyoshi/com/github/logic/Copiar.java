@@ -7,9 +7,9 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 
-public class Copiar	{
+public class Copiar{
 
-	public void copiar(String simbolo) {
+	public static void copiar(String simbolo) {
 		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard(); 
 		String text = simbolo; 
 		StringSelection selection = new StringSelection(text); 
@@ -17,7 +17,7 @@ public class Copiar	{
 		alt_tab();
 	}
 	
-	public void alt_tab() {
+	private static void alt_tab() {
 	    Robot robot;
 		try {
 			robot = new Robot();
